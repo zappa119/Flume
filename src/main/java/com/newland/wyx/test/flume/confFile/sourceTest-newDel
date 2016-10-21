@@ -1,0 +1,49 @@
+#====================
+# collect conf
+#====================
+bossLogAgent.sources = openLogSource
+bossLogAgent.channels = openLogMemChannel
+#bossLogAgent.sinkgroups = openLogFailoverGroup
+bossLogAgent.sinks = openLogAvroSink38
+
+#====================
+# source
+#====================
+bossLogAgent.sources.openLogSource.type = com.newland.wyx.test.flume.source.TestSource
+bossLogAgent.sources.openLogSource.sourceName = OpenlogSource
+bossLogAgent.sources.openLogSource.channels = openLogMemChannel
+bossLogAgent.sources.openLogSource.readPlatformType = abstract
+bossLogAgent.sources.openLogSource.f1.logFolder = /wuyuexiaoTest/flume/bosslog/uig/uig_api/trace/
+bossLogAgent.sources.openLogSource.f1.markFolder = /wuyuexiaoTest/flume/bosslog/uig/uig_api/trace/.meta/
+bossLogAgent.sources.openLogSource.f1.bakFolder = /wuyuexiaoTest/flume/bosslog/uig/uig_api/trace/bak/
+#bossLogAgent.sources.openLogSource.f2.logFolder = /wuyuexiaoTest/flume/bosslog/uig/uig_detect/trace/
+bossLogAgent.sources.openLogSource.scanNewFileTaskIntervalMinute = 1
+bossLogAgent.sources.openLogSource.markTaskIntervalSecond = 10
+#bossLogAgent.sources.openLogSource.delTaskIntervalSecond = 1
+bossLogAgent.sources.openLogSource.maxOpenTimeMinute = 1
+bossLogAgent.sources.openLogSource.maxIdleTimeMinute = 1
+bossLogAgent.sources.openLogSource.newDelTaskIntervalSecond = 1
+
+#====================
+# mem channel
+#====================
+bossLogAgent.channels.openLogMemChannel.type = memory
+bossLogAgent.channels.openLogMemChannel.capacity = 5000
+bossLogAgent.channels.openLogMemChannel.transactionCapacity = 1000
+bossLogAgent.channels.openLogMemChannel.byteCapacity = 512000000
+bossLogAgent.channels.openLogMemChannel.keep-alive = 60
+
+#====================
+# sink
+#====================
+bossLogAgent.sinks.openLogAvroSink38.type = hdfs
+bossLogAgent.sinks.openLogAvroSink38.hdfs.path = hdfs://tdapp10:8020/wyxTest/flume/testSource/
+bossLogAgent.sinks.openLogAvroSink38.channel = openLogMemChannel
+bossLogAgent.sinks.openLogAvroSink38.hdfs.filePrefix = eee
+bossLogAgent.sinks.openLogAvroSink38.hdfs.inUsePrefix = ._._
+bossLogAgent.sinks.openLogAvroSink38.hdfs.rollInterval = 30
+bossLogAgent.sinks.openLogAvroSink38.hdfs.rollSize = 0
+bossLogAgent.sinks.openLogAvroSink38.hdfs.rollCount = 0
+bossLogAgent.sinks.openLogAvroSink38.hdfs.batchSize = 10
+bossLogAgent.sinks.openLogAvroSink38.hdfs.writeFormat = text
+bossLogAgent.sinks.openLogAvroSink38.hdfs.fileType = DataStream
